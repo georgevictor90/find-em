@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Intro({ handleClick }) {
-  const levels = ["Easy", "Medium", "Hard"];
-  const buttons = levels.map((button) => (
+  const levels = ["Easy", "Normal", "Hard"];
+  const buttons = levels.map((level) => (
     <button
-      key={button}
+      className={`difficulty-button ${level.toLowerCase()}`}
+      key={level}
       onClick={() => {
-        handleClick(button);
+        handleClick(level);
       }}
     >
-      {button}
+      {level}
     </button>
   ));
+  const [animateTitle, setAnimateTitle] = useState(false);
+  useEffect(() => {
+    setAnimateTitle(true);
+  }, []);
+
   return (
-    <div className="postcard">
-      <h1>
-        FIND <span className="em">'EM!</span>
-      </h1>
-      <div className="buttons-container">{buttons}</div>
+    <div className="intro">
+      <div className="card">
+        <h1 className={animateTitle ? "animate title" : "title"}>
+          FIND <span>'EM!</span>
+        </h1>
+        <div className="buttons-container">{buttons}</div>
+      </div>
     </div>
   );
 }
