@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "../../images/img-large.jpg";
 
 function Characters({
@@ -11,7 +11,6 @@ function Characters({
 
   useEffect(() => {
     const imgElement = imgRef.current;
-    // console.log(imgElement);
     setInitialImgSize(imgElement.width, imgElement.width);
     window.addEventListener("resize", () => {
       handleResize(imgElement.width);
