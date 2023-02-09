@@ -4,17 +4,10 @@ import Header from "../header/Header";
 import RemainingCharactersList from "../remainingCharactersList/RemainingCharactersList";
 import Snackbar from "../snackbar/Snackbar";
 import Square from "../square/Square";
+import { db } from "../../firebase-config";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
-function Game({ restartGame, difficulty, newGame }) {
-  //When rendering and when difficulty changes, query the db for the characters for the game difficulty and save them in state
-  //Here we hardcode the characters
-
-  const [characters, setCharacters] = useState([
-    { name: "Waldo", x: 28.4, y: 69.7, found: false, difficulty: "hard" },
-    { name: "Plankton", x: 38.8, y: 35.8, found: false, difficulty: "hard" },
-    { name: "Ash Ketchum", x: 97.7, y: 39.8, found: false, difficulty: "hard" },
-  ]);
-
+function Game({ restartGame, difficulty }) {
   const [showSquare, setShowSquare] = useState(false);
   const [squarePos, setSquarePos] = useState({});
   const [squareSize, setSquareSize] = useState(null);
@@ -22,25 +15,39 @@ function Game({ restartGame, difficulty, newGame }) {
   const [imgSize, setImgSize] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
+  const [characters, setCharacters] = useState([]);
+  const charactersCollectionRef = collection(db, "characters");
+
   useEffect(() => {
-    // CHECK FOR WIN (EVERY CHARACTER FOUND)
-    characters.every((character) => character.found === true) &&
+    const getCharacters = async () => {
+      const q = query(
+        charactersCollectionRef,
+        where("difficulty", "==", difficulty.toLowerCase())
+      );
+      const querySnapshot = await getDocs(q);
+      let characters = [];
+      querySnapshot.forEach((doc) => {
+        characters.push({ ...doc.data(), id: doc.id, found: false });
+      });
+      setCharacters(characters);
+    };
+    getCharacters();
+  }, [difficulty]);
+
+  useEffect(() => {
+    // CHECK FOR WIN (EVERY CHARACTER IN STATE HAS A FOUND FLAG == TRUE)
+    if (
+      characters.length &&
+      characters.every((character) => character.found === true)
+    ) {
       setGameOver(true);
-    setShowSquare(false);
+      setShowSquare(false);
+    }
   }, [characters]);
 
-  // useEffect(() => {
-  //   !newGame &&
-  //     setSnackbar({ show: true, text: "CONGRATULATIONS, YOU FOUND 'EM ALL!" });
-  // }, [newGame]);
-
   useEffect(() => {
-    gameOver && declareWin();
+    if (gameOver === true) declareWin();
   }, [gameOver]);
-
-  useEffect(() => {
-    console.log(snackbar);
-  }, [snackbar]);
 
   useEffect(() => {
     setSquareSize(imgSize / 12);
