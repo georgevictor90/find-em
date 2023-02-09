@@ -1,29 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto+Mono:wght@400;700&family=Roboto:ital,wght@0,700;1,400&display=swap");
+
 .App {
+  min-height: 100vh;
+  /* background-color: #282c34; */
   text-align: center;
-  background-color: #282c34;
+
+  background: #0f0c29; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #24243e,
+    #302b63,
+    #0f0c29
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* //Intro */
+.intro {
+  display: grid;
+  place-items: center;
   min-height: 100vh;
 }
+
+.card {
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  background: #e0eafc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #cfdef3,
+    #e0eafc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #cfdef3,
+    #e0eafc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-radius: 25px;
+  /* background-image: url("./images/paper-texture.jpg");
+  background-position: center;
+  background-size: cover; */
+}
+.title {
+  animation: slide-in-right 1s ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateX(100%) rotate(30deg);
+  color: rgb(39, 174, 96);
+
+  font-family: "Luckiest Guy", cursive;
+
+  letter-spacing: 2px;
+  font-size: 3rem;
+}
+
+.title > span {
+  color: rgb(52, 73, 94);
+}
+
+@keyframes slide-in-right {
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-20deg) scale(1.4, 1.2);
+  }
+}
+
+.buttons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.difficulty-button {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 0.7rem;
+  /* margin: 10px; */
+  box-shadow: 0px 5px 10px #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  /* font-weight: 700; */
+  /* letter-spacing: 1px; */
+}
+
+.difficulty-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px #333;
+}
+
+.easy {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.normal {
+  background-color: rgb(0, 97, 255);
+  color: #fff;
+}
+
+.hard {
+  background-color: #df2029;
+  color: #fff;
+}
+
+/* ////// */
 
 .container {
   width: 100vw;
   max-width: 800px;
   margin: 0 auto;
-  background-color: #383a3c;
+  /* background-color: #383a3c; */
+  background-color: ivory;
+  min-height: 100vh;
 }
 
 .App-header {
   width: 100%;
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* font-size: calc(10px + 2vmin); */
   color: red;
 }
-h1 {
+
+.without-rotate {
+  transform: none !important;
   padding: 1rem;
+  margin: 1rem;
 }
+/* h1 {
+  padding: 1rem;
+} */
 
 .App-header ul {
   border: 1px solid white;
@@ -37,20 +163,65 @@ h1 {
   padding: 1rem;
 }
 
+.character-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.character-card-image {
+  width: 80px;
+  height: 80px;
+  background-color: #24243e;
+  border-radius: 50%;
+}
+
+.found {
+  text-decoration: line-through;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
 .timer {
   padding: 1rem;
 }
 
 img {
   width: 100%;
+  max-width: 800px;
   margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.guess-list {
+  position: absolute;
+  list-style: none;
+  top: 0;
+  left: 110%;
+}
+
+.guess-list li {
+  font-size: 2.5vmin;
+  padding: 10px 15px;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.guess-list li:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  img {
+    /* width: 200%; */
+    object-position: center;
+    margin: auto;
   }
-  to {
-    transform: rotate(360deg);
+  main {
+    overflow-x: scroll;
   }
 }
