@@ -18,11 +18,7 @@ function App() {
   return (
     <div className="App">
       {newGame ? (
-        <Game
-          restartGame={restartGame}
-          difficulty={difficulty}
-          newGame={newGame}
-        />
+        <Game restartGame={restartGame} difficulty={difficulty} />
       ) : (
         <Intro handleClick={startGame} />
       )}
