@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import Image from "../../images/img-large.jpg";
+import React, { useEffect, useRef, useState } from "react";
+
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase-config";
 
 function Characters({
   gameOver,
@@ -8,10 +10,27 @@ function Characters({
   setInitialImgSize,
 }) {
   const imgRef = useRef(null);
+  const [imgURL, setImgURL] = useState("");
+
+  useEffect(() => {
+    async function getURL() {
+      try {
+        const cartoonCharactersRef = ref(
+          storage,
+          "main-image/cartoon-characters.jpg"
+        );
+        const url = await getDownloadURL(ref(cartoonCharactersRef));
+        setImgURL(url);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getURL();
+  }, []);
 
   useEffect(() => {
     const imgElement = imgRef.current;
-    setInitialImgSize(imgElement.width, imgElement.width);
+    setInitialImgSize(imgElement.width);
     window.addEventListener("resize", () => {
       handleResize(imgElement.width);
     });
@@ -21,12 +40,12 @@ function Characters({
         handleResize(imgElement.current.width);
       });
     };
-  }, []);
+  });
 
   return (
     <img
       ref={imgRef}
-      src={Image}
+      src={imgURL}
       alt="Cartoon Characters"
       onClick={(e) => {
         e.stopPropagation();
