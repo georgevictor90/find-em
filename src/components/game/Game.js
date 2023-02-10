@@ -76,12 +76,15 @@ function Game({ restartGame, difficulty }) {
     setShowSquare(false);
   }, [imgSize]);
 
+  useEffect(() => {
+    if (snackbar.show) setShowSquare(false);
+  }, [snackbar]);
+
   function hideSquare() {
     setShowSquare(false);
   }
 
   function setInitialImgSize(width) {
-    console.log("initial: " + width);
     setImgSize(width);
   }
 
@@ -149,6 +152,8 @@ function Game({ restartGame, difficulty }) {
         {showSquare && (
           <Square squareSize={squareSize} squarePos={squarePos}>
             <RemainingCharactersList
+              imgSize={imgSize}
+              squarePos={squarePos}
               characters={characters}
               handleGuess={handleGuess}
             />
