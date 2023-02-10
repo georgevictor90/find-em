@@ -213,6 +213,15 @@ img {
   margin: 0;
 }
 
+.guess-list {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  transition-delay: 0.5s;
+}
+
+.guess-list.visible {
+  opacity: 1;
+}
 .guess-list li {
   font-size: 2.5vmin;
   padding: 10px 15px;

@@ -15,8 +15,9 @@ function Game({ restartGame, difficulty }) {
   const [snackbar, setSnackbar] = useState({ text: "", show: false });
   const [imgSize, setImgSize] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-
   const [characters, setCharacters] = useState([]);
+  const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
+
   const charactersCollectionRef = collection(db, "characters");
 
   async function getUrl(characterName) {
@@ -28,6 +29,14 @@ function Game({ restartGame, difficulty }) {
       console.log(error);
     }
   }
+
+  // useEffect(() => {
+  //   console.log(showRemainingCharacters);
+  // }, [showRemainingCharacters]);
+
+  useEffect(() => {
+    setShowRemainingCharacters(!showRemainingCharacters);
+  }, [squarePos]);
 
   useEffect(() => {
     const getCharacters = async () => {
@@ -94,9 +103,13 @@ function Game({ restartGame, difficulty }) {
   }
 
   function handleClickOnImage(x, y) {
+    if (showRemainingCharacters === true) {
+      setShowRemainingCharacters(false);
+    }
     setSnackbar({ text: "", show: false });
     setSquarePos({ x, y });
     setShowSquare(true);
+    // setShowRemainingCharacters(true);
   }
 
   function getCoordsOfGuess(characterName) {
@@ -151,12 +164,15 @@ function Game({ restartGame, difficulty }) {
         />
         {showSquare && (
           <Square squareSize={squareSize} squarePos={squarePos}>
-            <RemainingCharactersList
-              imgSize={imgSize}
-              squarePos={squarePos}
-              characters={characters}
-              handleGuess={handleGuess}
-            />
+            {showRemainingCharacters && (
+              <RemainingCharactersList
+                showRemainingCharacters={showRemainingCharacters}
+                imgSize={imgSize}
+                squarePos={squarePos}
+                characters={characters}
+                handleGuess={handleGuess}
+              />
+            )}
           </Square>
         )}
         {snackbar.show && <Snackbar text={snackbar.text} />}

@@ -10,6 +10,11 @@ function RemainingCharactersList({
   const [left, setLeft] = useState(null);
   const [top, setTop] = useState(null);
   const [bottom, setBottom] = useState(null);
+  const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
+
+  useEffect(() => {
+    setShowRemainingCharacters(true);
+  }, []);
 
   useEffect(() => {
     //Check the square position in percentage relative to the image
@@ -66,7 +71,10 @@ function RemainingCharactersList({
   });
 
   return (
-    <ul style={styles} className="guess-list">
+    <ul
+      style={styles}
+      className={showRemainingCharacters ? "guess-list visible" : "guess-list"}
+    >
       {guessListItems}
     </ul>
   );
