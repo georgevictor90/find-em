@@ -4,8 +4,9 @@ import Header from "../header/Header";
 import RemainingCharactersList from "../remainingCharactersList/RemainingCharactersList";
 import Snackbar from "../snackbar/Snackbar";
 import Square from "../square/Square";
-import { db } from "../../firebase-config";
+import { db, storage } from "../../firebase-config";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 
 function Game({ restartGame, difficulty }) {
   const [showSquare, setShowSquare] = useState(false);
@@ -18,6 +19,16 @@ function Game({ restartGame, difficulty }) {
   const [characters, setCharacters] = useState([]);
   const charactersCollectionRef = collection(db, "characters");
 
+  async function getUrl(characterName) {
+    try {
+      const cardImgRef = ref(storage, `characters/${characterName}.png`);
+      const url = await getDownloadURL(ref(cardImgRef));
+      return url;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     const getCharacters = async () => {
       const q = query(
@@ -26,13 +37,24 @@ function Game({ restartGame, difficulty }) {
       );
       const querySnapshot = await getDocs(q);
       let characters = [];
+      const promises = [];
       querySnapshot.forEach((doc) => {
-        characters.push({ ...doc.data(), id: doc.id, found: false });
+        promises.push(
+          getUrl(doc.data().name).then((url) => {
+            characters.push({
+              ...doc.data(),
+              url: url,
+              id: doc.id,
+              found: false,
+            });
+          })
+        );
       });
+      await Promise.all(promises);
       setCharacters(characters);
     };
     getCharacters();
-  }, [difficulty]);
+  }, []);
 
   useEffect(() => {
     // CHECK FOR WIN (EVERY CHARACTER IN STATE HAS A FOUND FLAG == TRUE)
@@ -59,6 +81,7 @@ function Game({ restartGame, difficulty }) {
   }
 
   function setInitialImgSize(width) {
+    console.log("initial: " + width);
     setImgSize(width);
   }
 
