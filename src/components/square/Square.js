@@ -14,6 +14,8 @@ function Square({ squareSize, squarePos, children }) {
         position: "absolute",
         left: `${squarePos.x - squareSize / 2}px`,
         top: `${squarePos.y - squareSize / 2}px`,
+        transition:
+          "top 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), left 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)",
       }}
     >
       {children}
