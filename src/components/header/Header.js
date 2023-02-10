@@ -4,7 +4,10 @@ function Header({ characters }) {
   const headerCharacterListItems = characters.map((character) => (
     <li key={characters.indexOf(character)}>
       <div className="character-card">
-        <div className="character-card-image"></div>
+        <div
+          className="character-card-image"
+          style={{ backgroundImage: `url(${character.url})` }}
+        ></div>
         <p className={character.found ? "found" : null}>{character.name}</p>
       </div>
     </li>
