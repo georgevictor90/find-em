@@ -166,6 +166,7 @@ function Game({ restartGame, difficulty }) {
           <Square squareSize={squareSize} squarePos={squarePos}>
             {showRemainingCharacters && (
               <RemainingCharactersList
+                squareSize={squareSize}
                 showRemainingCharacters={showRemainingCharacters}
                 imgSize={imgSize}
                 squarePos={squarePos}

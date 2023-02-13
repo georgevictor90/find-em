@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function RemainingCharactersList({
+  squareSize,
   squarePos,
   imgSize,
   characters,
@@ -27,12 +28,12 @@ function RemainingCharactersList({
 
     // if left half, place on right side of square
     if (xPercentage < 50) {
-      setRight("-200%");
+      setRight(`-${squareSize * 2}px`);
       setLeft("");
 
       // if right half, place on left side of square
     } else {
-      setLeft("-200%");
+      setLeft(`-${squareSize * 2}px`);
       setRight("");
     }
 
