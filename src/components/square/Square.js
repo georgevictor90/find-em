@@ -5,11 +5,12 @@ function Square({ squareSize, squarePos, children }) {
     <div
       className="square"
       style={{
+        boxShadow: "5px 5px 5px 5px rgb(0 0 0 / 40%)",
         width: `${squareSize}px`,
         height: `${squareSize}px`,
         backgroundColor: "rgba(255,255,255,0.1)",
         border: "3px dashed #333",
-        outline: "8px ridge rgba(255, 61, 0, .6)",
+        outline: "1vmin ridge rgba(255, 61, 0, .8)",
         borderRadius: "50%",
         position: "absolute",
         left: `${squarePos.x - squareSize / 2}px`,
