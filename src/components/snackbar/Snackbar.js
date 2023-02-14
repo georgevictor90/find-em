@@ -1,7 +1,7 @@
 import React from "react";
 
-function Snackbar({ text }) {
-  return <div className="snackbar">{text}</div>;
+function Snackbar({ text, fade }) {
+  return <div className={fade ? "snackbar fade" : "snackbar"}>{text}</div>;
 }
 
 export default Snackbar;

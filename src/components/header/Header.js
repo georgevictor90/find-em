@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header({ characters }) {
+function Header({ characters, timerStarted, children }) {
   const headerCharacterListItems = characters.map((character) => (
     <li key={characters.indexOf(character)}>
       <div className="character-card">
@@ -19,9 +19,7 @@ function Header({ characters }) {
         FIND <span>'EM!</span>
       </h1>
       <ul>{headerCharacterListItems}</ul>
-      <span className="timer">
-        Timer: <span id="timer">00:00:00</span>
-      </span>
+      {children}
     </header>
   );
 }

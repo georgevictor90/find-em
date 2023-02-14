@@ -7,16 +7,19 @@ import Square from "../square/Square";
 import { db, storage } from "../../firebase-config";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
+import Timer from "../timer/Timer";
 
 function Game({ restartGame, difficulty }) {
   const [showSquare, setShowSquare] = useState(false);
   const [squarePos, setSquarePos] = useState({});
   const [squareSize, setSquareSize] = useState(null);
   const [snackbar, setSnackbar] = useState({ text: "", show: false });
+  const [snackbarFade, setSnackbarFade] = useState(false);
   const [imgSize, setImgSize] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
 
   const charactersCollectionRef = collection(db, "characters");
 
@@ -29,10 +32,6 @@ function Game({ restartGame, difficulty }) {
       console.log(error);
     }
   }
-
-  // useEffect(() => {
-  //   console.log(showRemainingCharacters);
-  // }, [showRemainingCharacters]);
 
   useEffect(() => {
     setShowRemainingCharacters(!showRemainingCharacters);
@@ -71,6 +70,7 @@ function Game({ restartGame, difficulty }) {
       characters.length &&
       characters.every((character) => character.found === true)
     ) {
+      setTimerStarted(false);
       setGameOver(true);
       setShowSquare(false);
     }
@@ -86,7 +86,12 @@ function Game({ restartGame, difficulty }) {
   }, [imgSize]);
 
   useEffect(() => {
-    if (snackbar.show) setShowSquare(false);
+    if (snackbar.show) {
+      setShowSquare(false);
+      setTimeout(() => {
+        setSnackbarFade(true);
+      }, 1000);
+    }
   }, [snackbar]);
 
   function hideSquare() {
@@ -107,9 +112,9 @@ function Game({ restartGame, difficulty }) {
       setShowRemainingCharacters(false);
     }
     setSnackbar({ text: "", show: false });
+    setSnackbarFade(false);
     setSquarePos({ x, y });
     setShowSquare(true);
-    // setShowRemainingCharacters(true);
   }
 
   function getCoordsOfGuess(characterName) {
@@ -149,14 +154,21 @@ function Game({ restartGame, difficulty }) {
     setSnackbar({ show: true, text: "CONGRATULATIONS, YOU FOUND 'EM ALL!" });
   }
 
+  function handleImageLoad() {
+    setTimerStarted(true);
+  }
+
   return (
     <div className="container">
-      <Header characters={characters} />
+      <Header timerStarted={timerStarted} characters={characters}>
+        <Timer timerStarted={timerStarted} />
+      </Header>
       <main style={{ position: "relative" }}>
         {gameOver && (
           <button onClick={restartGame}>Choose another difficulty</button>
         )}
         <Characters
+          handleImageLoad={handleImageLoad}
           gameOver={gameOver}
           setInitialImgSize={setInitialImgSize}
           handleClick={handleClickOnImage}
@@ -176,7 +188,7 @@ function Game({ restartGame, difficulty }) {
             )}
           </Square>
         )}
-        {snackbar.show && <Snackbar text={snackbar.text} />}
+        {snackbar.show && <Snackbar fade={snackbarFade} text={snackbar.text} />}
       </main>
     </div>
   );
