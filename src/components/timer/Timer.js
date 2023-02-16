@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function Timer({ timerStarted }) {
-  const [time, setTime] = useState(0);
+function Timer({ timerStarted, time, handleSetTime }) {
   const [running, setRunning] = useState(false);
 
   useEffect(() => {
     let interval;
     if (running) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 10);
+        handleSetTime((prevTime) => prevTime + 10);
       }, 10);
     } else if (!running) {
       clearInterval(interval);
@@ -46,7 +45,7 @@ function Timer({ timerStarted }) {
       </button>
       <button
         onClick={() => {
-          setTime(0);
+          handleSetTime(0);
           setRunning(false);
         }}
       >

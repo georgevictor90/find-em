@@ -8,8 +8,9 @@ import { db, storage } from "../../firebase-config";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import Timer from "../timer/Timer";
+import GameOverCard from "../gameOverCard/GameOverCard";
 
-function Game({ restartGame, difficulty }) {
+function Game({ restartGame, difficulty, goToLeaderboard }) {
   const [showSquare, setShowSquare] = useState(false);
   const [squarePos, setSquarePos] = useState({});
   const [squareSize, setSquareSize] = useState(null);
@@ -20,6 +21,7 @@ function Game({ restartGame, difficulty }) {
   const [characters, setCharacters] = useState([]);
   const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [time, setTime] = useState(0);
 
   const charactersCollectionRef = collection(db, "characters");
 
@@ -158,14 +160,26 @@ function Game({ restartGame, difficulty }) {
     setTimerStarted(true);
   }
 
+  function handleSetTime(newTime) {
+    setTime(newTime);
+  }
+
   return (
     <div className="container">
       <Header timerStarted={timerStarted} characters={characters}>
-        <Timer timerStarted={timerStarted} />
+        <Timer
+          handleSetTime={handleSetTime}
+          time={time}
+          timerStarted={timerStarted}
+        />
       </Header>
       <main style={{ position: "relative" }}>
         {gameOver && (
-          <button onClick={restartGame}>Choose another difficulty</button>
+          <GameOverCard
+            time={time}
+            goToLeaderboard={goToLeaderboard}
+            restartGame={restartGame}
+          />
         )}
         <Characters
           handleImageLoad={handleImageLoad}

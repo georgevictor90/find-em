@@ -11,7 +11,7 @@ function Square({ squareSize, squarePos, children }) {
         backgroundColor: "rgba(255,255,255,0.1)",
         border: "3px dashed #333",
         outline: "1vmin ridge rgba(255, 61, 0, .8)",
-        borderRadius: "50%",
+        borderRadius: "15%",
         position: "absolute",
         left: `${squarePos.x - squareSize / 2}px`,
         top: `${squarePos.y - squareSize / 2}px`,

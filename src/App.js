@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import Intro from "./components/intro/Intro";
 import "./App.css";
 import Game from "./components/game/Game";
+import Leaderboard from "./components/leaderboard/Leaderboard";
 
 function App() {
   const [newGame, setNewGame] = useState(false);
   const [difficulty, setDifficulty] = useState("");
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   function startGame(difficulty) {
     setDifficulty(difficulty);
@@ -15,12 +17,25 @@ function App() {
     setNewGame(false);
   }
 
+  function goToLeaderboard() {
+    setNewGame(false);
+    setShowLeaderboard(true);
+  }
+
   return (
     <div className="App">
       {newGame ? (
-        <Game restartGame={restartGame} difficulty={difficulty} />
+        // Game component starts a new game based on difficulty
+        <Game
+          restartGame={restartGame}
+          difficulty={difficulty}
+          goToLeaderboard={goToLeaderboard}
+        />
+      ) : showLeaderboard ? (
+        <Leaderboard />
       ) : (
-        <Intro handleClick={startGame} />
+        // Intro component asks the user to choose a difficulty
+        <Intro handleClick={startGame} goToLeaderboard={goToLeaderboard} />
       )}
     </div>
   );

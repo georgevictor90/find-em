@@ -147,6 +147,11 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.snackbar.fade {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
 .App-header {
   width: 100%;
   display: flex;
@@ -223,7 +228,7 @@ img {
   opacity: 1;
 }
 .guess-list li {
-  font-size: 2.5vmin;
+  font-size: 2vmin;
   padding: 10px 15px;
   background-color: #f2f2f2;
   border-bottom: 1px solid #333;
@@ -234,4 +239,43 @@ img {
 .guess-list li:hover {
   background-color: #333;
   color: #fff;
+}
+
+/* ///////GAME OVER CARD/////// */
+.game-over-card {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid white;
+  padding: 3vmin;
+  color: white;
+  font-family: "Luckiest Guy", sans-serif;
+  font-size: 1.2rem;
+}
+
+.game-over-card input {
+  font-size: 1.2rem;
+  padding: 2px 4px;
+  text-align: center;
+}
+
+.game-over-card button {
+  font-size: 1.2rem;
+  padding: 2px 4px;
+}
+
+.game-over-card > button:last-child {
+  display: block;
+  margin: 0 auto;
+}
+
+/* ////////leaderboard/////// */
+.leaderboard {
+  color: white;
+}
+.leaderboard ol {
+  margin: 0 auto;
+  max-width: 80vw;
+  tex-align: left;
 }

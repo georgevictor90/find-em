@@ -4,6 +4,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase-config";
 
 function Characters({
+  handleImageLoad,
   gameOver,
   handleClick,
   handleResize,
@@ -44,6 +45,7 @@ function Characters({
 
   return (
     <img
+      onLoad={handleImageLoad}
       ref={imgRef}
       src={imgURL}
       alt="Cartoon Characters"

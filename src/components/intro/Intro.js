@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Intro({ handleClick }) {
+function Intro({ handleClick, goToLeaderboard }) {
   const levels = ["Easy", "Normal", "Hard"];
   const buttons = levels.map((level) => (
     <button
@@ -25,6 +25,7 @@ function Intro({ handleClick }) {
           FIND <span>'EM!</span>
         </h1>
         <div className="buttons-container">{buttons}</div>
+        <button onClick={goToLeaderboard}>Go to Leaderboard</button>
       </div>
     </div>
   );
