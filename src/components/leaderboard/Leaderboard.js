@@ -3,10 +3,9 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { db } from "../../firebase-config";
-import useTimeConverter from "../../hooks/useTimeConverter";
 import LeaderboardItem from "../leaderboardItem/LeaderboardItem";
 
-function Leaderboard() {
+function Leaderboard({ restartGame }) {
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
@@ -26,6 +25,9 @@ function Leaderboard() {
   return (
     <div className="leaderboard">
       <h1>Leaderboard</h1>
+      <button className="restart-game-button" onClick={restartGame}>
+        Start new game
+      </button>{" "}
       <ol>
         {leaderboard.map((item, index) => (
           <LeaderboardItem item={item} key={index} />

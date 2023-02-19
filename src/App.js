@@ -15,6 +15,7 @@ function App() {
   }
   function restartGame() {
     setNewGame(false);
+    setShowLeaderboard(false);
   }
 
   function goToLeaderboard() {
@@ -32,7 +33,7 @@ function App() {
           goToLeaderboard={goToLeaderboard}
         />
       ) : showLeaderboard ? (
-        <Leaderboard />
+        <Leaderboard restartGame={restartGame} />
       ) : (
         // Intro component asks the user to choose a difficulty
         <Intro handleClick={startGame} goToLeaderboard={goToLeaderboard} />

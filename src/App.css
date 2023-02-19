@@ -347,3 +347,20 @@ img {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.restart-game-button {
+  border-radius: 12px;
+  font-weight: bold;
+  padding: 1rem;
+  border: 1px solid #333;
+  margin: 2rem auto 0;
+  cursor: pointer;
+  color: #333;
+  background: #ff00ff;
+}
+
+.restart-game-button:hover {
+  background-color: #60a917;
+  color: white;
+  transform: scale(1.1);
+}
