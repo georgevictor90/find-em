@@ -2,9 +2,11 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useState } from "react";
 import { db } from "../../firebase-config";
+import useTimeConverter from "../../hooks/useTimeConverter";
 
 function GameOverCard({ goToLeaderboard, restartGame, time }) {
   const [name, setName] = useState("");
+  const timeString = useTimeConverter(time);
 
   async function handleNameSubmit(e) {
     try {
@@ -29,10 +31,7 @@ function GameOverCard({ goToLeaderboard, restartGame, time }) {
   return (
     <div className="game-over-card">
       <p>
-        Your time is{" "}
-        <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-        <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}.</span>
-        <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+        Your time is <span>{timeString}</span>
       </p>
       <form>
         <label htmlFor="name">Name:</label>

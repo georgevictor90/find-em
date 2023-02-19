@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import useTimeConverter from "../../hooks/useTimeConverter";
 
 function Timer({ timerStarted, time, handleSetTime }) {
   const [running, setRunning] = useState(false);
+  const timeString = useTimeConverter(time);
 
   useEffect(() => {
     let interval;
@@ -26,9 +28,7 @@ function Timer({ timerStarted, time, handleSetTime }) {
   return (
     <div className="timer-container">
       <span className="timer">Timer: </span>
-      <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-      <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}.</span>
-      <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+      <span>{timeString}</span>
       <button
         onClick={() => {
           setRunning(true);
