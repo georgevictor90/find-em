@@ -86,7 +86,8 @@
   gap: 1.2rem;
 }
 
-.difficulty-button {
+.difficulty-button,
+.leaderboard-link {
   font-family: "Roboto Mono", monospace;
   font-size: 1.2em;
   border: none;
@@ -120,6 +121,17 @@
 .hard {
   background-color: #df2029;
   color: #fff;
+}
+
+.leaderboard-link {
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 0.8rem;
+  text-transform: none;
+  box-shadow: none;
+  color: blue;
+  border: 2px solid rgba(0, 0, 255, 0.5);
+  background: transparent;
+  font-weight: bold;
 }
 
 /* ////// */
@@ -272,10 +284,66 @@ img {
 
 /* ////////leaderboard/////// */
 .leaderboard {
-  color: white;
+  color: #ff00ff;
+  height: 100%;
+  min-height: 100vh;
+  padding-block: 3rem;
 }
+
+.leaderboard h1 {
+  font-family: "Luckiest guy", sans-serif;
+  font-size: 3rem;
+  letter-spacing: 1px;
+  background: linear-gradient(
+    to right,
+    #ff0000,
+    #ff8000,
+    #ffff00,
+    #80ff00,
+    #00ff80,
+    #00ffff,
+    #0080ff,
+    #8000ff,
+    #ff00ff
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px black;
+  background-clip: text;
+  line-height: 60px;
+  text-align: center;
+}
+
 .leaderboard ol {
-  margin: 0 auto;
-  max-width: 80vw;
-  tex-align: left;
+  padding-left: 40px;
+  border-radius: 25px;
+  display: flex;
+  gap: 1rem;
+  padding: 4rem;
+  width: clamp(300px, 80vw, 800px);
+  flex-direction: column;
+  margin: 4rem auto;
+  background: rgba(112, 128, 144, 0.1);
+}
+
+.leaderboard li {
+  font-family: "Roboto Mono", monospace;
+  font-weight: bold;
+  font-size: clamp(1.2rem, 3vmin, 2rem);
+  background: rgba(112, 128, 144, 0.1);
+}
+
+.leaderboard-entry {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.leaderboard-entry-info {
+  text-align: right;
+  width: 100%;
+  background: linear-gradient(45deg, white, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

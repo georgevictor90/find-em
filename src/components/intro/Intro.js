@@ -25,7 +25,9 @@ function Intro({ handleClick, goToLeaderboard }) {
           FIND <span>'EM!</span>
         </h1>
         <div className="buttons-container">{buttons}</div>
-        <button onClick={goToLeaderboard}>Go to Leaderboard</button>
+        <button className="leaderboard-link" onClick={goToLeaderboard}>
+          to Leaderboard
+        </button>
       </div>
     </div>
   );
