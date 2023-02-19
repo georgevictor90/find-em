@@ -29,28 +29,6 @@ function Timer({ timerStarted, time, handleSetTime }) {
     <div className="timer-container">
       <span className="timer">Timer: </span>
       <span>{timeString}</span>
-      <button
-        onClick={() => {
-          setRunning(true);
-        }}
-      >
-        start
-      </button>
-      <button
-        onClick={() => {
-          setRunning(false);
-        }}
-      >
-        stop
-      </button>
-      <button
-        onClick={() => {
-          handleSetTime(0);
-          setRunning(false);
-        }}
-      >
-        reset
-      </button>
     </div>
   );
 }
