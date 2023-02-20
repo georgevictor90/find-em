@@ -266,30 +266,64 @@ img {
 }
 
 .game-over-card {
-  width: fit-content;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   border: 1px solid white;
-  padding: 3vmin;
+  padding-block: 1rem;
   color: white;
   font-family: "Luckiest Guy", sans-serif;
   font-size: 1.2rem;
 }
 
-.game-over-card input {
+.timestring {
+  margin-left: 8px;
   font-size: 1.2rem;
-  padding: 2px 8px;
+  font-weight: bold;
+  color: #ff00ff;
+  font-family: "Roboto Mono", monospace;
 }
 
-.game-over-card button {
-  font-size: 1.2rem;
-  padding: 2px 4px;
+.input-container {
+  display: flex;
+  max-width: 100%;
+  padding-inline: 8px;
+  min-height: 3rem;
+}
+
+.game-over-card input {
+  font-size: 1rem;
+  padding: 10px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border: none;
+}
+
+.submit-score {
+  border: none;
+  font-size: 1rem;
+  padding: 4px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: #ff00ff;
+  color: white;
+  font-weight: bold;
+}
+.submit-score:hover {
+  background-color: #33ff99;
+  cursor: pointer;
 }
 
 .game-over-card > button:last-child {
   display: block;
   margin: 0 auto;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background: transparent;
+  color: #ff00ff;
+  border: 1px solid #ff00ff;
 }
 
 /* ////////leaderboard/////// */
