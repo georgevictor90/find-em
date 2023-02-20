@@ -168,6 +168,7 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
     <div className="container">
       {gameOver && (
         <GameOverCard
+          difficulty={difficulty}
           time={time}
           goToLeaderboard={goToLeaderboard}
           restartGame={restartGame}

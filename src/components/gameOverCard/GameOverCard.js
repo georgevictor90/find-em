@@ -4,7 +4,7 @@ import { useState } from "react";
 import { db } from "../../firebase-config";
 import useTimeConverter from "../../hooks/useTimeConverter";
 
-function GameOverCard({ goToLeaderboard, restartGame, time }) {
+function GameOverCard({ difficulty, goToLeaderboard, restartGame, time }) {
   const [name, setName] = useState("");
   const timeString = useTimeConverter(time);
 
@@ -20,6 +20,7 @@ function GameOverCard({ goToLeaderboard, restartGame, time }) {
         await addDoc(collection(db, "leaderboard"), {
           name: name,
           time: time,
+          difficulty: difficulty,
         });
         goToLeaderboard();
         setName("");
