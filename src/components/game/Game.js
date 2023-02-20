@@ -166,6 +166,13 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
 
   return (
     <div className="container">
+      {gameOver && (
+        <GameOverCard
+          time={time}
+          goToLeaderboard={goToLeaderboard}
+          restartGame={restartGame}
+        />
+      )}
       <Header timerStarted={timerStarted} characters={characters}>
         <Timer
           handleSetTime={handleSetTime}
@@ -174,13 +181,6 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
         />
       </Header>
       <main style={{ position: "relative" }}>
-        {gameOver && (
-          <GameOverCard
-            time={time}
-            goToLeaderboard={goToLeaderboard}
-            restartGame={restartGame}
-          />
-        )}
         <Characters
           handleImageLoad={handleImageLoad}
           gameOver={gameOver}

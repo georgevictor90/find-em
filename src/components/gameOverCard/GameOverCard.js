@@ -29,31 +29,33 @@ function GameOverCard({ goToLeaderboard, restartGame, time }) {
     }
   }
   return (
-    <div className="game-over-card">
-      <p>
-        Your time is <span className="timestring">{timeString}</span>
-      </p>
-      <form>
-        <div className="input-container">
-          <label htmlFor="name" className="sr-only">
-            Name:
-          </label>
-          <input
-            id="name"
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-            placeholder="Name..."
-          />
-          <button className="submit-score" onClick={handleNameSubmit}>
-            Submit score
-          </button>
-        </div>
-      </form>
-      <span> or </span>
-      <button className="restart-game-button" onClick={restartGame}>
-        Choose another difficulty
-      </button>
+    <div className="backdrop">
+      <div className="game-over-card">
+        <p>
+          Your time is <span className="timestring">{timeString}</span>
+        </p>
+        <form>
+          <div className="input-container">
+            <label htmlFor="name" className="sr-only">
+              Name:
+            </label>
+            <input
+              id="name"
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              placeholder="Name..."
+            />
+            <button className="submit-score" onClick={handleNameSubmit}>
+              Submit score
+            </button>
+          </div>
+        </form>
+        <span> or </span>
+        <button className="restart-game-button" onClick={restartGame}>
+          Choose another difficulty
+        </button>
+      </div>
     </div>
   );
 }

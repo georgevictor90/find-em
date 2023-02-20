@@ -255,6 +255,17 @@ img {
 }
 
 /* ///////GAME OVER CARD/////// */
+.backdrop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
 .sr-only {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);
@@ -266,12 +277,13 @@ img {
 }
 
 .game-over-card {
+  background-color: #333;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  border: 1px solid white;
+  border: 2px solid white;
   padding-block: 1rem;
   color: white;
   font-family: "Luckiest Guy", sans-serif;
@@ -304,11 +316,11 @@ img {
 .submit-score {
   border: none;
   font-size: 1rem;
-  padding: 4px;
+  padding: 4px 8px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   background-color: #ff00ff;
-  color: white;
+  color: #333;
   font-weight: bold;
 }
 .submit-score:hover {
@@ -323,7 +335,7 @@ img {
   font-size: 1rem;
   background: transparent;
   color: #ff00ff;
-  border: 1px solid #ff00ff;
+  border: 2px solid #ff00ff;
 }
 
 /* ////////leaderboard/////// */
@@ -360,14 +372,19 @@ img {
 
 .leaderboard ol {
   padding-left: 40px;
-  border-radius: 25px;
   display: flex;
   gap: 1rem;
-  padding: 4rem;
   width: clamp(300px, 80vw, 800px);
   flex-direction: column;
   margin: 4rem auto;
   background: rgba(112, 128, 144, 0.1);
+}
+
+@media screen and (min-width: 450px) {
+  .leaderboard ol {
+    border-radius: 25px;
+    padding: 4rem;
+  }
 }
 
 .leaderboard li {
@@ -384,7 +401,7 @@ img {
 }
 
 .leaderboard-entry-info {
-  text-align: right;
+  text-align: center;
   width: 100%;
   background: linear-gradient(45deg, white, #ff00ff);
   -webkit-background-clip: text;
