@@ -34,12 +34,15 @@ function GameOverCard({ goToLeaderboard, restartGame, time }) {
         Your time is <span>{timeString}</span>
       </p>
       <form>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name" className="sr-only">
+          Name:
+        </label>
         <input
           id="name"
           type="text"
           onChange={(e) => setName(e.target.value)}
           value={name}
+          placeholder="Name..."
         />
         <button onClick={handleNameSubmit}>Submit score</button>
       </form>
