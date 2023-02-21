@@ -348,7 +348,7 @@ img {
 
 .leaderboard h1 {
   font-family: "Luckiest guy", sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: 1px;
   background: linear-gradient(
     to right,
@@ -368,29 +368,30 @@ img {
   background-clip: text;
   line-height: 60px;
   text-align: center;
+  /* margin: 1rem auto; */
+}
+
+.slide {
+  width: 100%;
+  margin: 0 auto;
 }
 
 .leaderboard ol {
-  padding-left: 40px;
+  /* padding-left: 40px; */
   display: flex;
   gap: 1rem;
-  width: clamp(300px, 80vw, 800px);
+  /* width: clamp(300px, 80vw, 800px); */
+  width: 80%;
+  /* min-height: 100%; */
   flex-direction: column;
-  margin: 4rem auto;
+  margin: 2rem auto;
   background: rgba(112, 128, 144, 0.1);
-}
-
-@media screen and (min-width: 450px) {
-  .leaderboard ol {
-    border-radius: 25px;
-    padding: 4rem;
-  }
 }
 
 .leaderboard li {
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
-  font-size: clamp(1.2rem, 3vmin, 2rem);
+  font-size: clamp(1rem, 3vmin, 1.5rem);
   background: rgba(112, 128, 144, 0.1);
 }
 
@@ -414,7 +415,7 @@ img {
   font-weight: bold;
   padding: 1rem;
   border: 1px solid #333;
-  margin: 2rem auto 0;
+  margin: 2rem auto;
   cursor: pointer;
   color: #333;
   background: #ff00ff;
@@ -424,4 +425,70 @@ img {
   background-color: #60a917;
   color: white;
   transform: scale(1.1);
+}
+
+.carousel {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: clamp(300px, 80vw, 800px);
+  margin: 0 auto;
+  border-radius: 10px;
+  padding-block: 1rem;
+}
+
+.scoreboards {
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.scoreboards .sb-container {
+  width: 100%;
+  display: flex;
+}
+
+.slider-control {
+  border: none;
+  position: absolute;
+  top: 50%;
+  /* top: 1rem; */
+  font-size: 3rem;
+  color: white;
+  /* transform: translateY(-50%); */
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.slider-control:hover {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.prevSlider {
+  left: -2rem;
+}
+
+.nextSlider {
+  right: -2rem;
+}
+
+.carousel-nav-circle {
+  height: 1.2rem;
+  width: 1.2rem;
+  color: white;
+  border-radius: 50%;
+  margin: 10px 5px;
+}
+
+@media screen and (min-width: 450px) {
+  .leaderboard ol {
+    border-radius: 25px;
+    padding: 4rem;
+  }
+
+  .prevSlider {
+    left: 0rem;
+  }
+
+  .nextSlider {
+    right: 0rem;
+  }
 }
