@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function CarouselNavCircle({ handleClick, index }) {
+function CarouselNavCircle({ handleClick, index, currentIndex }) {
   return (
     <button
       onClick={() => handleClick(index)}
-      className="carousel-nav-circle"
+      className={
+        index === currentIndex
+          ? "carousel-nav-circle current"
+          : "carousel-nav-circle"
+      }
     ></button>
   );
 }

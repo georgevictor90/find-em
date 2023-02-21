@@ -11,6 +11,7 @@ function Carousel({ slides }) {
       key={idx}
       handleClick={handleNavCircleClick}
       index={idx}
+      currentIndex={currentIndex}
     />
   ));
 

@@ -3,17 +3,12 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { db } from "../../firebase-config";
-import LeaderboardItem from "../leaderboardItem/LeaderboardItem";
 import Carousel from "../carousel/Carousel";
 import CarouselSlide from "../carouselSlide/CarouselSlide";
 
 function Leaderboard({ restartGame }) {
   const [leaderboard, setLeaderboard] = useState([]);
   const difficulties = ["Easy", "Normal", "Hard"];
-
-  useEffect(() => {
-    console.log(leaderboard);
-  }, [leaderboard]);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -43,14 +38,7 @@ function Leaderboard({ restartGame }) {
       <button className="restart-game-button" onClick={restartGame}>
         Start new game
       </button>
-
       <Carousel slides={slides} />
-
-      {/* <ol>
-        {leaderboard.map((item, index) => (
-          <LeaderboardItem item={item} key={index} />
-        ))}
-      </ol> */}
     </div>
   );
 }
