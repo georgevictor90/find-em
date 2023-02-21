@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import CarouselNavCircle from "../carouselNavCircle/CarouselNavCircle";
 
 function Carousel({ slides }) {
+  const [touchPosition, setTouchPosition] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const circles = slides.map((slide, idx) => (
@@ -12,6 +13,30 @@ function Carousel({ slides }) {
       index={idx}
     />
   ));
+
+  function handleTouchStart(e) {
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  }
+
+  function handleTouchMove(e) {
+    const touchDown = touchPosition;
+    if (touchDown === null) {
+      return;
+    }
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      nextSlide();
+    }
+
+    if (diff < -5) {
+      prevSlide();
+    }
+
+    setTouchPosition(null);
+  }
 
   function prevSlide() {
     if (currentIndex === 0) return;
@@ -28,7 +53,11 @@ function Carousel({ slides }) {
 
   return (
     <div className="carousel">
-      <div className="scoreboards">
+      <div
+        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
+        className="scoreboards"
+      >
         <button onClick={prevSlide} className="slider-control prevSlider">
           <BsChevronCompactLeft />
         </button>

@@ -447,6 +447,7 @@ img {
 }
 
 .slider-control {
+  display: none;
   border: none;
   position: absolute;
   top: 50%;
@@ -482,6 +483,10 @@ img {
   .leaderboard ol {
     border-radius: 25px;
     padding: 4rem;
+  }
+
+  .slider-control {
+    display: unset;
   }
 
   .prevSlider {
