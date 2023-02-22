@@ -32,6 +32,7 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
       return url;
     } catch (error) {
       console.log(error);
+      return error;
     }
   }
 
@@ -46,21 +47,15 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
         where("difficulty", "==", difficulty.toLowerCase())
       );
       const querySnapshot = await getDocs(q);
-      let characters = [];
-      const promises = [];
-      querySnapshot.forEach((doc) => {
-        promises.push(
-          getUrl(doc.data().name).then((url) => {
-            characters.push({
-              ...doc.data(),
-              url: url,
-              id: doc.id,
-              found: false,
-            });
-          })
-        );
-      });
-      await Promise.all(promises);
+      const promises = querySnapshot.docs.map((doc) =>
+        getUrl(doc.data().name).then((url) => ({
+          ...doc.data(),
+          url,
+          id: doc.id,
+          found: false,
+        }))
+      );
+      const characters = await Promise.all(promises);
       setCharacters(characters);
     };
     getCharacters();
@@ -68,19 +63,13 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
 
   useEffect(() => {
     // CHECK FOR WIN (EVERY CHARACTER IN STATE HAS A FOUND FLAG == TRUE)
-    if (
-      characters.length &&
-      characters.every((character) => character.found === true)
-    ) {
+    if (characters.length && characters.every((character) => character.found)) {
       setTimerStarted(false);
       setGameOver(true);
       setShowSquare(false);
+      setSnackbar({ show: true, text: "CONGRATULATIONS, YOU FOUND 'EM ALL!" });
     }
   }, [characters]);
-
-  useEffect(() => {
-    if (gameOver === true) declareWin();
-  }, [gameOver]);
 
   useEffect(() => {
     setSquareSize(imgSize / 12);
@@ -150,10 +139,6 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
           : character;
       })
     );
-  }
-
-  function declareWin() {
-    setSnackbar({ show: true, text: "CONGRATULATIONS, YOU FOUND 'EM ALL!" });
   }
 
   function handleImageLoad() {
