@@ -59,13 +59,17 @@ function Carousel({ slides }) {
         onTouchStart={handleTouchStart}
         className="scoreboards"
       >
-        <button onClick={prevSlide} className="slider-control prevSlider">
-          <BsChevronCompactLeft />
-        </button>
+        {currentIndex !== 0 && (
+          <button onClick={prevSlide} className="slider-control prevSlider">
+            <BsChevronCompactLeft />
+          </button>
+        )}
         <ul className="sb-container">{slides[currentIndex]}</ul>
-        <button onClick={nextSlide} className="slider-control nextSlider">
-          <BsChevronCompactRight />
-        </button>
+        {currentIndex !== 2 && (
+          <button onClick={nextSlide} className="slider-control nextSlider">
+            <BsChevronCompactRight />
+          </button>
+        )}
       </div>
       <ul className="carousel-nav">{circles}</ul>
     </div>
