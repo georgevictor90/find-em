@@ -51,21 +51,25 @@ function Game() {
 
   useEffect(() => {
     const getCharacters = async () => {
-      const q = query(
-        charactersCollectionRef,
-        where("difficulty", "==", difficulty.toLowerCase())
-      );
-      const querySnapshot = await getDocs(q);
-      const promises = querySnapshot.docs.map((doc) =>
-        getUrl(doc.data().name).then((url) => ({
-          ...doc.data(),
-          url,
-          id: doc.id,
-          found: false,
-        }))
-      );
-      const characters = await Promise.all(promises);
-      setCharacters(characters);
+      try {
+        const q = query(
+          charactersCollectionRef,
+          where("difficulty", "==", difficulty.toLowerCase())
+        );
+        const querySnapshot = await getDocs(q);
+        const promises = querySnapshot.docs.map((doc) =>
+          getUrl(doc.data().name).then((url) => ({
+            ...doc.data(),
+            url,
+            id: doc.id,
+            found: false,
+          }))
+        );
+        const characters = await Promise.all(promises);
+        setCharacters(characters);
+      } catch (error) {
+        console.log("Error fetching characters: ", error);
+      }
     };
     getCharacters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
