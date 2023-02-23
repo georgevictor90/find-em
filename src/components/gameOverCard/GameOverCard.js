@@ -4,9 +4,14 @@ import { useState } from "react";
 import { db } from "../../firebase-config";
 import useTimeConverter from "../../hooks/useTimeConverter";
 
-function GameOverCard({ difficulty, goToLeaderboard, restartGame, time }) {
+import { useContext } from "react";
+import { AppContext } from "../../App";
+
+function GameOverCard({ time }) {
   const [name, setName] = useState("");
   const timeString = useTimeConverter(time);
+
+  const { restartGame, difficulty, goToLeaderboard } = useContext(AppContext);
 
   async function handleNameSubmit(e) {
     try {

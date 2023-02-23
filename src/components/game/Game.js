@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Characters from "../characters/Characters";
 import Header from "../header/Header";
 import RemainingCharactersList from "../remainingCharactersList/RemainingCharactersList";
@@ -10,7 +10,11 @@ import { getDownloadURL, ref } from "firebase/storage";
 import Timer from "../timer/Timer";
 import GameOverCard from "../gameOverCard/GameOverCard";
 
-function Game({ restartGame, difficulty, goToLeaderboard }) {
+import { AppContext } from "../../App";
+
+function Game() {
+  const { difficulty } = useContext(AppContext);
+
   const [showSquare, setShowSquare] = useState(false);
   const [squarePos, setSquarePos] = useState({});
   const [squareSize, setSquareSize] = useState(null);
@@ -151,14 +155,7 @@ function Game({ restartGame, difficulty, goToLeaderboard }) {
 
   return (
     <div className="container">
-      {gameOver && (
-        <GameOverCard
-          difficulty={difficulty}
-          time={time}
-          goToLeaderboard={goToLeaderboard}
-          restartGame={restartGame}
-        />
-      )}
+      {gameOver && <GameOverCard time={time} />}
       <Header timerStarted={timerStarted} characters={characters}>
         <Timer
           handleSetTime={handleSetTime}

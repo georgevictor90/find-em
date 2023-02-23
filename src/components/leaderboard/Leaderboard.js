@@ -1,14 +1,15 @@
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db } from "../../firebase-config";
 import Carousel from "../carousel/Carousel";
 import CarouselSlide from "../carouselSlide/CarouselSlide";
+import { AppContext } from "../../App";
 
-function Leaderboard({ restartGame }) {
+function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const difficulties = ["Easy", "Normal", "Hard"];
+
+  const { restartGame } = useContext(AppContext);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {

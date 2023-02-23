@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
-function Intro({ handleClick, goToLeaderboard }) {
+import { AppContext } from "../../App";
+
+function Intro() {
+  const { startGame, goToLeaderboard } = useContext(AppContext);
   const levels = ["Easy", "Normal", "Hard"];
+  const [animateTitle, setAnimateTitle] = useState(false);
+
   const buttons = levels.map((level) => (
     <button
       className={`difficulty-button ${level.toLowerCase()}`}
       key={level}
       onClick={() => {
-        handleClick(level);
+        startGame(level);
       }}
     >
       {level}
     </button>
   ));
-  const [animateTitle, setAnimateTitle] = useState(false);
+
   useEffect(() => {
     setAnimateTitle(true);
   }, []);
