@@ -3,7 +3,6 @@ import { SquareContext } from "../game/Game";
 
 function RemainingCharactersList({ imgSize, characters, handleGuess }) {
   const { squareSize, squarePos } = useContext(SquareContext);
-
   const [right, setRight] = useState("");
   const [left, setLeft] = useState(null);
   const [top, setTop] = useState(null);

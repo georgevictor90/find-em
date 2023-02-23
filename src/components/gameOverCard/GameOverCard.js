@@ -1,17 +1,13 @@
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import useTimeConverter from "../../hooks/useTimeConverter";
-
-import { useContext } from "react";
 import { AppContext } from "../../App";
 import { TimerContext } from "../game/Game";
 
 function GameOverCard() {
   const { time } = useContext(TimerContext);
   const { restartGame, difficulty, goToLeaderboard } = useContext(AppContext);
-
   const [name, setName] = useState("");
   const timeString = useTimeConverter(time);
 

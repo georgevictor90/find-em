@@ -1,11 +1,9 @@
-import React, { useEffect, useContext } from "react";
-import { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useTimeConverter from "../../hooks/useTimeConverter";
 import { TimerContext } from "../game/Game";
 
 function Timer() {
   const { time, setTime, timerStarted } = useContext(TimerContext);
-
   const [running, setRunning] = useState(false);
   const timeString = useTimeConverter(time);
 
