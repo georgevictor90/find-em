@@ -6,12 +6,14 @@ import useTimeConverter from "../../hooks/useTimeConverter";
 
 import { useContext } from "react";
 import { AppContext } from "../../App";
+import { TimerContext } from "../game/Game";
 
-function GameOverCard({ time }) {
+function GameOverCard() {
+  const { time } = useContext(TimerContext);
+  const { restartGame, difficulty, goToLeaderboard } = useContext(AppContext);
+
   const [name, setName] = useState("");
   const timeString = useTimeConverter(time);
-
-  const { restartGame, difficulty, goToLeaderboard } = useContext(AppContext);
 
   async function handleNameSubmit(e) {
     try {

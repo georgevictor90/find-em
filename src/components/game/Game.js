@@ -1,47 +1,52 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
+// IMPORT COMPONENTS
 import Characters from "../characters/Characters";
 import Header from "../header/Header";
 import RemainingCharactersList from "../remainingCharactersList/RemainingCharactersList";
 import Snackbar from "../snackbar/Snackbar";
 import Square from "../square/Square";
+
+// FIREBASE IMPORTS
 import { db, storage } from "../../firebase-config";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import Timer from "../timer/Timer";
 import GameOverCard from "../gameOverCard/GameOverCard";
 
+//CONTEXT STUFF
 import { AppContext } from "../../App";
+export const SquareContext = createContext();
+export const TimerContext = createContext();
 
 function Game() {
   const { difficulty } = useContext(AppContext);
 
+  // SQUARE CONTEXT STATE
   const [showSquare, setShowSquare] = useState(false);
   const [squarePos, setSquarePos] = useState({});
   const [squareSize, setSquareSize] = useState(null);
+
+  // SNACKBAR CONTEXT STATE
   const [snackbar, setSnackbar] = useState({ text: "", show: false });
   const [snackbarFade, setSnackbarFade] = useState(false);
+
+  // TIMER CONTEXT STATE
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [time, setTime] = useState(0);
+
+  // OTHER STATE
   const [imgSize, setImgSize] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [time, setTime] = useState(0);
 
   const charactersCollectionRef = collection(db, "characters");
 
-  async function getUrl(characterName) {
-    try {
-      const cardImgRef = ref(storage, `characters/${characterName}.png`);
-      const url = await getDownloadURL(ref(cardImgRef));
-      return url;
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  }
-
+  // SIDE EFFECTS
   useEffect(() => {
-    setShowRemainingCharacters(!showRemainingCharacters);
+    setShowRemainingCharacters(
+      (showRemainingCharacters) => !showRemainingCharacters
+    );
   }, [squarePos]);
 
   useEffect(() => {
@@ -63,6 +68,7 @@ function Game() {
       setCharacters(characters);
     };
     getCharacters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -88,6 +94,18 @@ function Game() {
       }, 1000);
     }
   }, [snackbar]);
+
+  // FUNCTIONS
+  async function getUrl(characterName) {
+    try {
+      const cardImgRef = ref(storage, `characters/${characterName}.png`);
+      const url = await getDownloadURL(ref(cardImgRef));
+      return url;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 
   function hideSquare() {
     setShowSquare(false);
@@ -128,14 +146,12 @@ function Game() {
       Math.abs(clickPosInPercentages.y - guessCoords.y) < 3
         ? true
         : false;
-
     setSnackbar({
       text: isFound
         ? `YES! YOU FOUND ${characterName}`
         : `THAT'S NOT ${characterName}. KEEP TRYING`,
       show: true,
     });
-
     setCharacters(
       characters.map((character) => {
         return character.name === characterName
@@ -149,20 +165,15 @@ function Game() {
     setTimerStarted(true);
   }
 
-  function handleSetTime(newTime) {
-    setTime(newTime);
-  }
-
   return (
     <div className="container">
-      {gameOver && <GameOverCard time={time} />}
-      <Header timerStarted={timerStarted} characters={characters}>
-        <Timer
-          handleSetTime={handleSetTime}
-          time={time}
-          timerStarted={timerStarted}
-        />
-      </Header>
+      <TimerContext.Provider value={{ time, setTime, timerStarted }}>
+        {gameOver && <GameOverCard />}
+        <Header characters={characters}>
+          <Timer />
+        </Header>
+      </TimerContext.Provider>
+
       <main style={{ position: "relative" }}>
         <Characters
           handleImageLoad={handleImageLoad}
@@ -171,19 +182,19 @@ function Game() {
           handleClick={handleClickOnImage}
           handleResize={handleResize}
         />
+
         {showSquare && (
-          <Square squareSize={squareSize} squarePos={squarePos}>
-            {showRemainingCharacters && (
-              <RemainingCharactersList
-                squareSize={squareSize}
-                showRemainingCharacters={showRemainingCharacters}
-                imgSize={imgSize}
-                squarePos={squarePos}
-                characters={characters}
-                handleGuess={handleGuess}
-              />
-            )}
-          </Square>
+          <SquareContext.Provider value={{ squareSize, squarePos }}>
+            <Square>
+              {showRemainingCharacters && (
+                <RemainingCharactersList
+                  imgSize={imgSize}
+                  characters={characters}
+                  handleGuess={handleGuess}
+                />
+              )}
+            </Square>
+          </SquareContext.Provider>
         )}
         {snackbar.show && <Snackbar fade={snackbarFade} text={snackbar.text} />}
       </main>

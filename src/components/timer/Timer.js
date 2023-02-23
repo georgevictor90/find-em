@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import useTimeConverter from "../../hooks/useTimeConverter";
+import { TimerContext } from "../game/Game";
 
-function Timer({ timerStarted, time, handleSetTime }) {
+function Timer() {
+  const { time, setTime, timerStarted } = useContext(TimerContext);
+
   const [running, setRunning] = useState(false);
   const timeString = useTimeConverter(time);
 
@@ -10,7 +13,7 @@ function Timer({ timerStarted, time, handleSetTime }) {
     let interval;
     if (running) {
       interval = setInterval(() => {
-        handleSetTime((prevTime) => prevTime + 10);
+        setTime((prevTime) => prevTime + 10);
       }, 10);
     } else if (!running) {
       clearInterval(interval);
@@ -19,6 +22,7 @@ function Timer({ timerStarted, time, handleSetTime }) {
     return () => {
       clearInterval(interval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running]);
 
   useEffect(() => {

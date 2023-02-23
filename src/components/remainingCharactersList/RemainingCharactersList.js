@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { SquareContext } from "../game/Game";
 
-function RemainingCharactersList({
-  squareSize,
-  squarePos,
-  imgSize,
-  characters,
-  handleGuess,
-}) {
+function RemainingCharactersList({ imgSize, characters, handleGuess }) {
+  const { squareSize, squarePos } = useContext(SquareContext);
+
   const [right, setRight] = useState("");
   const [left, setLeft] = useState(null);
   const [top, setTop] = useState(null);
   const [bottom, setBottom] = useState(null);
-  const [showRemainingCharacters, setShowRemainingCharacters] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
-    setShowRemainingCharacters(true);
+    setShowList(true);
   }, []);
 
   useEffect(() => {
@@ -47,6 +44,7 @@ function RemainingCharactersList({
       setBottom("50%");
       setTop("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [squarePos]);
 
   const styles = {
@@ -74,7 +72,7 @@ function RemainingCharactersList({
   return (
     <ul
       style={styles}
-      className={showRemainingCharacters ? "guess-list visible" : "guess-list"}
+      className={showList ? "guess-list visible" : "guess-list"}
     >
       {guessListItems}
     </ul>

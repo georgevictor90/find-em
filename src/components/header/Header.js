@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header({ characters, timerStarted, children }) {
+function Header({ characters, children }) {
   const headerCharacterListItems = characters.map((character) => (
     <li key={characters.indexOf(character)}>
       <div className="character-card">

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { SquareContext } from "../game/Game";
 
-function Square({ squareSize, squarePos, children }) {
+function Square({ children }) {
+  const { squareSize, squarePos } = useContext(SquareContext);
   return (
     <div
       className="square"
