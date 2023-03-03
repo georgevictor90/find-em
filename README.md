@@ -8,6 +8,12 @@ This is a responsive fun little game similar to the classic Where's Waldo. Try t
 Live Demo:
 https://georgevictor90.github.io/find-em
 
+## Features
+
+- Responsive and user friendly
+- Three difficulty levels
+- Leaderboards for each difficulty level
+
 ## Screenshots
 
 ![Choose difficulty](src/screenshots/findem1.png)
@@ -27,10 +33,31 @@ This game was built using the following technologies and tools:
 
 This project is bootstrapped with Create React App and written with React.js and React Hooks. The game's data is stored and retrieved from Firebase Firestore, and its images are stored in Firebase Storage. Finally, the game is deployed on GitHub Pages for free static website hosting.
 
-## Features
+## Run Locally
 
-- Works on mobile & desktop
-- Leaderboards for each difficulty level
+Clone the project
+
+```bash
+  git clone https://github.com/georgevictor90/find-em
+```
+
+Go to the project directory
+
+```bash
+  cd gifta
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm start
+```
 
 ## License
 
