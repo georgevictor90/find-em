@@ -1,4 +1,11 @@
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useState, useEffect, useContext } from "react";
 import { db } from "../../firebase-config";
 import Carousel from "../carousel/Carousel";
@@ -13,15 +20,32 @@ function Leaderboard() {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
-      const leaderboardRef = collection(db, "leaderboard");
-      const q = query(leaderboardRef, orderBy("time"), limit(10));
-      const querySnapshot = await getDocs(q);
       const leaderboardData = [];
-      querySnapshot.forEach((doc) => {
-        leaderboardData.push({ ...doc.data(), id: doc.id });
-      });
+      const leaderboardRef = collection(db, "leaderboard");
+
+      for (const difficulty of difficulties) {
+        const q = query(
+          leaderboardRef,
+          where("difficulty", "==", difficulty),
+          orderBy("time"),
+          limit(10)
+        );
+        const querySnapshot = await getDocs(q);
+        const difficultyLeaderboard = [];
+
+        querySnapshot.forEach((doc) => {
+          difficultyLeaderboard.push({ ...doc.data(), id: doc.id });
+        });
+
+        leaderboardData.push({
+          difficulty,
+          leaderboard: difficultyLeaderboard,
+        });
+      }
+
       setLeaderboard(leaderboardData);
     };
+
     fetchLeaderboard();
   }, []);
 
@@ -29,7 +53,10 @@ function Leaderboard() {
     <CarouselSlide
       key={index}
       difficulty={difficulty}
-      leaderboard={leaderboard}
+      leaderboard={
+        leaderboard.find((entry) => entry.difficulty === difficulty)
+          ?.leaderboard || []
+      }
     />
   ));
 
