@@ -9,7 +9,7 @@ export const AppContext = createContext();
 
 function App() {
   const [newGame, setNewGame] = useState(false);
-  const [difficulty, setDifficulty] = useState("");
+  const [difficulty, setDifficulty] = useState("Easy");
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const startGame = (difficulty) => {
