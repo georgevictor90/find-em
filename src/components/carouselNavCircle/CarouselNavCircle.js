@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 function CarouselNavCircle({ handleClick, index, currentIndex }) {
   return (
