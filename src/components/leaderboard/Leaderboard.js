@@ -16,7 +16,7 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const difficulties = ["Easy", "Normal", "Hard"];
 
-  const { restartGame } = useContext(AppContext);
+  const { restartGame, difficulty: currentDifficulty } = useContext(AppContext);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -66,7 +66,10 @@ function Leaderboard() {
       <button className="restart-game-button" onClick={restartGame}>
         Start new game
       </button>
-      <Carousel slides={slides} />
+      <Carousel
+        slides={slides}
+        index={difficulties.indexOf(currentDifficulty)}
+      />
     </div>
   );
 }

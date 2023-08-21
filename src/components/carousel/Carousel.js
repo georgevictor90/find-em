@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import CarouselNavCircle from "../carouselNavCircle/CarouselNavCircle";
 
-function Carousel({ slides }) {
+function Carousel({ slides, index }) {
   const [touchPosition, setTouchPosition] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(index);
 
   const circles = slides.map((slide, idx) => (
     <CarouselNavCircle
